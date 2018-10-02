@@ -21,7 +21,10 @@ limitations under the License.
 define('DIGIID_SITE_NAME', 'Site name');
 
 // define your absolute url
-define('DIGIID_SERVER_URL', 'https://www.site.com/enter/'); // https is must!
+define('DIGIID_SERVER_URL', 'https://www.site.com/'); // https is must!
+
+// site language
+define('DIGIID_LANG', 'en');
 
 // define database credentials
 define('DIGIID_DB_HOST', 'localhost');
@@ -30,8 +33,8 @@ define('DIGIID_DB_USER', 'root');
 define('DIGIID_DB_PASS', '');
 define('DIGIID_TBL_PREFIX', 'digiid_');
 
-define('DIGIID_GOOGLE_ANALYTICS_TAG', 'UA-123456789-1');
+define('DIGIID_GOOGLE_ANALYTICS_TAG', ''); // for example UA-123456789-1
 
 // Which port to open/close
-define('DIGIID_OPENCLOSE_PORT', 3389);
+define('DIGIID_OPENCLOSE_PORT', 1234);
 define('DIGIID_OPENCLOSE_PROFILE', 'public');

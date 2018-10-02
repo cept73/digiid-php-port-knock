@@ -22,7 +22,8 @@ class firewall {
     private $rule_name = 'RDP DIGIID';
     private $system32path = '%SYSTEMROOT%\system32\\';
     private $profile;
-    private $localport = 80;
+    private $localport = DIGIID_OPENCLOSE_PORT;
+    private $empty_ip = '127.0.0.1';
 
     public function __construct($localport, $profile='public') {
         // Port to open/close
@@ -34,8 +35,10 @@ class firewall {
     }
 
     public function _log($text) {
-        //return; // Turned off
-        $f = fopen('F:\site\domains\query.log','at');
+        if (!DIGIID_DEBUG_PATH) return;
+
+	// Log it
+        $f = fopen(DIGIID_DEBUG_PATH,'at');
         if (!is_string($text)) $text = json_encode($text);
         fwrite($f, $text. "\r\n");
         fclose($f);
@@ -105,7 +108,7 @@ class firewall {
         foreach ($ips as $k=>$v) {
             if ($ip == $v) return false;
             // empty element
-            if ($v == '127.0.0.1') unset($ips[$k]);
+            if ($v == $this->empty_ip) unset($ips[$k]);
         }
         // Add IP there
         $ips[] = $ip;
@@ -139,7 +142,7 @@ class firewall {
         // Pack again
         $ips_string = implode($ips, ',');
         // No deny rule, only allow list, at least empty elem
-        if (empty($ips_string)) $ips_string = '127.0.0.1';
+        if (empty($ips_string)) $ips_string = $this->empty_ip;
         // What to do
         $action = !empty($ips_string) ? 'allow' : 'block';
 
