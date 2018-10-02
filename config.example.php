@@ -26,6 +26,9 @@ define('DIGIID_SERVER_URL', 'https://www.site.com/'); // https is must!
 // site language
 define('DIGIID_LANG', 'en');
 
+// if empty, no log
+define('DIGIID_DEBUG_PATH', '');
+
 // define database credentials
 define('DIGIID_DB_HOST', 'localhost');
 define('DIGIID_DB_NAME', 'table');
