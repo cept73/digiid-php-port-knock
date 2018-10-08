@@ -12,7 +12,8 @@ Server side: Installation
 * Change Remote Desktop port from 3389 to port 1234:
 
 ```
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp /v PortNumber /t REG_DWORD /d 1234 /f
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp \
+	/v PortNumber /t REG_DWORD /d 1234 /f
 ```
 
 Also restart RDP service from Windows server services
@@ -33,7 +34,9 @@ git clone https://github.com/cept73/digiid-php-port-knock.git .
 * Create a task to clean IPs list every night, for example at 3 o'clock:
 
 ```
-SchTasks /Create /SC DAILY /TN "Clean authenticated IPs list" /TR "%SYSTEMROOT%\system32\netsh advfirewall firewall set rule name='RDP DIGIID' new remoteip=127.0.0.1 action=allow" /ST 03:00
+SchTasks /Create /SC DAILY /TN "Clean authenticated IPs list" \
+	/TR "%SYSTEMROOT%\system32\netsh advfirewall firewall set rule name='RDP DIGIID' \
+	new remoteip=127.0.0.1 action=allow" /ST 03:00
 ```
 
 User side
