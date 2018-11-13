@@ -17,6 +17,7 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinS
 ```
 
 Also restart RDP service from Windows server services
+**If you install web-server on Open Server, then you need user to be always logged in for work. Best case is to install web-server which running as a service. Apache2+PHP7+MySQL is the best solution instead of Open Server. Instruction is comming soon**
 
 * Install web-server with PHP (include GMP library) and MySQL. For example, you may use ready all-in-one free pack: [Open Server](https://ospanel.io)).
 * Set some safe password to MySQL user and create new database, which you will specify later in config file. All necessary tables will be created automatically on demand, so you need only some database.
