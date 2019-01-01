@@ -20,11 +20,11 @@ class token_user {
 
     private $_mysqli;
     private $addr;
+    private $secret;
     public function __construct($addr = null, $host = DIGIID_DB_HOST, $user = DIGIID_DB_USER, $pass = DIGIID_DB_PASS, $name = DIGIID_DB_NAME) {
         @$this->_mysqli = new mysqli($host, $user, $pass, $name);
 	if ($this->_mysqli->connect_errno) die ($this->_mysqli->connect_error);
 	$this->addr = $addr;
-
         $this->checkInstalled();
     }
 
@@ -56,6 +56,9 @@ class token_user {
      * @return bool|mysqli_result
      */
     public function insert($info) {
+        if (DIGIID_SECRET != '' && isset($info['secret']) && $info['secret'] == DIGIID_SECRET)
+            return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`, `auth`) VALUES ('%s', '%s')", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio']), 1));
+
         return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`) VALUES ('%s', '%s')", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio'])));
     }
 

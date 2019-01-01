@@ -35,9 +35,13 @@ define('DIGIID_DB_NAME', 'table');
 define('DIGIID_DB_USER', 'root');
 define('DIGIID_DB_PASS', '');
 define('DIGIID_TBL_PREFIX', 'digiid_');
+define('DIGIID_SECRET', ''); // if set, who specified this secret, automatically will be admin
 
 define('DIGIID_GOOGLE_ANALYTICS_TAG', ''); // for example UA-123456789-1
 
-// Which port to open/close
+// For Linux. Where hold IPs. Allow ALL ports (at current version)
+define('DIGIID_IPS_PATH', '/var/www/html/ips');
+
+// For Windows. Which port to open/close
 define('DIGIID_OPENCLOSE_PORT', 1234);
 define('DIGIID_OPENCLOSE_PROFILE', 'public');
