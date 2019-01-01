@@ -12,10 +12,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+// Detect server operation system
+$fwlib = (php_uname('s') == 'linux') ? 'firewall_linux' : 'firewall';
 
 session_start();
 require_once dirname(__FILE__) . "/config.php";
-require_once dirname(__FILE__) . "/classes/firewall.php";
+require_once dirname(__FILE__) . "/classes/$fwlib.php";
 
 // Using port and network profile (public, private, domain, any)
 $fw = new firewall (DIGIID_OPENCLOSE_PORT, DIGIID_OPENCLOSE_PROFILE);
