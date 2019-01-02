@@ -17,9 +17,6 @@ limitations under the License.
 
 // COPY TO config.php AND CHANGE PARAMS
 
-// define your site name
-define('DIGIID_SITE_NAME', 'site_name');
-
 // define your absolute url
 define('DIGIID_SERVER_URL', 'https://www.site.com/'); // https is must!
 
@@ -30,13 +27,16 @@ define('DIGIID_LANG', 'en');
 define('DIGIID_DEBUG_PATH', '');
 
 // define database credentials
+define('DIGIID_SITE_NAME', 'DigiID auth');
 define('DIGIID_DB_HOST', 'localhost');
-define('DIGIID_DB_NAME', 'table');
-define('DIGIID_DB_USER', 'root');
-define('DIGIID_DB_PASS', '');
+define('DIGIID_DB_NAME', 'digiid_db');
+define('DIGIID_DB_USER', 'digiid_user');
+define('DIGIID_DB_PASS', '111222333');
 define('DIGIID_TBL_PREFIX', 'digiid_');
 define('DIGIID_SECRET', ''); // if set, who specified this secret, automatically will be admin
+define('DIGIID_SITE_NAME', 'site_name');
 
+// Google Analytics
 define('DIGIID_GOOGLE_ANALYTICS_TAG', ''); // for example UA-123456789-1
 
 // For Linux. Where hold IPs. Allow ALL ports (at current version)
