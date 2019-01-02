@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Settings
+# SETTINGS
 PHP_INI=/etc/php/7.2/apache2/php.ini
 SITE_DIR=/var/www/html
 DB=digiid_db
 DB_USER=digiid_user
 DB_PASSWORD=111222333
+# /SETTINGS
 
 # Install packages
 echo "* INSTALL PACKAGES"

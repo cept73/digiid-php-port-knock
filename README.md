@@ -1,7 +1,18 @@
 Task
 =========================================================================================================
 
-For example, you want to use port 1234 on your server for Remote Desktop Protocol connections. Such connections must be unavailable directly to anybody, only after user authentication with Digi-ID. For exclusion, local network may connect without authentication.
+Linux: server DigiID firewall
+What its do:
+1️⃣ Open on server for everybody only two ports: 80 (http), 443 (https). Close all others.
+2️⃣ When user enter url of server, he arrive to web-site with DigiID authentication
+3️⃣ If he is there for a first time, system prompts for registration. User may enter secret words (which set by admin before) and became "friendly user". Also admin may change theirs state throw mysql.
+4️⃣ After successfull log in for  good users IPs, system will  open other ports (list can be tuned throw firewall)
+5️⃣ When user end his work, he may click Close connection and system close door for his IP.
+6️⃣ If he didnt close and gone, system clear list of current logged users daily at 1 o'clock
+
+Windows: for example, you want to use port 1234 on your server for Remote Desktop Protocol connections. Such connections must be unavailable directly to anybody, only after user authentication with Digi-ID. For exclusion, local network may connect without authentication.
+
+If you like this project, donate some digibytes to DPZ9BncvaCRx7vMXN6dAQNnXzTP6JVahqj
 
 https://www.youtube.com/watch?v=pLrQycud5GI
 
@@ -9,9 +20,15 @@ Linux: Installation (**BETA!**)
 =========================================================================================================
 
 1. go to install folder
-2. edit install.sh - set settings (db name, db user,  etc) 
-3. run: `bash install.sh`
-4. after install, check that its works and remove this folder
+2. edit install.sh - set settings (specify db name, db user,  etc):
+```
+# SETTINGS
+....
+....
+# /SETTINGS
+```
+3. save and run: `bash install.sh`
+4. after install, check is it works and remove install folder
 
 Windows Server: Installation
 =========================================================================================================
