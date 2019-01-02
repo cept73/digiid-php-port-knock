@@ -3,6 +3,9 @@
 # Settings
 PHP_INI=/etc/php/7.2/apache2/php.ini
 SITE_DIR=/var/www/html
+DB=digiid_db
+DB_USER=digiid_user
+DB_PASSWORD=111222333
 
 # Install packages
 echo "* INSTALL PACKAGES"
@@ -22,6 +25,9 @@ fi
 echo "* CLONE SOURCES *"
 rm $SITE_DIR/index.html &> /dev/null
 git clone https://github.com/cept73/digiid-php-port-knock.git $SITE_DIR
+
+# Create user for database
+mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO $DB_USER@localhost IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;"
 
 # User might edit config manually
 echo "* EDIT CONFIG: $SITE_DIR/config.php  *"
@@ -56,9 +62,7 @@ if ufw status | grep "DigiID init";
     ufw allow 443 comment "DigiID init" > /dev/null
 fi
 
-sudo a2enmod ssl
-
-mysql -e "GRANT ALL PRIVILEGES ON digiid_db.* TO digiid_user@localhost IDENTIFIED BY '111222333' WITH GRANT OPTION;"
+sudo a2enmod ssl &> /dev/null
 
 # firewall
 sudo echo y | ufw enable &> /dev/null

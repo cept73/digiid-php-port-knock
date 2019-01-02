@@ -8,8 +8,10 @@ https://www.youtube.com/watch?v=pLrQycud5GI
 Linux: Installation (**BETA!**)
 =========================================================================================================
 
-go to install folder and run:
-`bash install.sh`
+1. go to install folder
+2. edit install.sh - set settings (db name, db user,  etc) 
+3. run: `bash install.sh`
+4. after install, check that its works and remove this folder
 
 Windows Server: Installation
 =========================================================================================================
