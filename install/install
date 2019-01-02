@@ -23,11 +23,13 @@ if ! grep -q "; libs for DigiID" $PHP_INI
 fi
 
 # Place web-site
-echo "* CLONE SOURCES *"
-rm $SITE_DIR/index.html &> /dev/null
-git clone https://github.com/cept73/digiid-php-port-knock.git $SITE_DIR
+#echo "* CLONE SOURCES *"
+#rm $SITE_DIR/index.html &> /dev/null
+#git clone https://github.com/cept73/digiid-php-port-knock.git $SITE_DIR
 
 # Create user for database
+mysql -e "CREATE DATABASE $DB;"
+mysql -e "CREATE USER $DB_USER@localhost;"
 mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO $DB_USER@localhost IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;"
 
 # User might edit config manually
@@ -38,14 +40,22 @@ mcedit -u $SITE_DIR/config.php
 echo "* ADD JOBS TO CRON *"
 
 # Add root to incron.allow, if not added before
-if ! grep -q "root" /etc/incron.allow
-  then sudo echo root >> /etc/incron.allow
+if test -f "/etc/incron.allow"; then 
+  if ! grep -q "root" /etc/incron.allow
+    then sudo echo root >> /etc/incron.allow
+  fi
+else
+  sudo echo root > /etc/incron.allow
 fi
 
 # On every change dir
 sudo cp ips-rescan.sh /var/spool/incron
-if ! grep -q "/ips-rescan.sh" /var/spool/incron/root
-  then sudo echo "/var/www/html/ips/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" >> /var/spool/incron/root
+if test -f "/var/spool/incron/root"; then 
+  if ! grep -q "/ips-rescan.sh" /var/spool/incron/root
+    then sudo echo "/var/www/html/ips/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" >> /var/spool/incron/root
+  fi
+else
+  sudo echo "/var/www/html/ips/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" > /var/spool/incron/root
 fi
 
 # On every 1am clean allowed list
