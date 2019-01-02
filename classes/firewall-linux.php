@@ -100,9 +100,9 @@ class firewall {
      * @return string
      */
     public function get_ip() {
-        $this->_log(array($_SERVER['HTTP_CLIENT_IP'],$_SERVER['HTTP_X_FORWARDED_FOR'],$_SERVER['REMOTE_ADDR']));
-        if ($_SERVER['HTTP_CLIENT_IP'] != null) return $_SERVER['HTTP_CLIENT_IP'];
-        if ($_SERVER['HTTP_X_FORWARDED_FOR'] != null) return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        //$this->_log(array($_SERVER['HTTP_CLIENT_IP'],$_SERVER['HTTP_X_FORWARDED_FOR'],$_SERVER['REMOTE_ADDR']));
+        if (isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != null) return $_SERVER['HTTP_CLIENT_IP'];
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != null) return $_SERVER['HTTP_X_FORWARDED_FOR'];
         return $_SERVER['REMOTE_ADDR'];
     }
 
