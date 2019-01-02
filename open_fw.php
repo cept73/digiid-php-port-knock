@@ -13,8 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 // Detect server operation system
-$fwlib = (php_uname('s') == 'linux') ? 'firewall_linux' : 'firewall';
-
+$fwlib = (strtoupper(php_uname('s')) == 'LINUX') ? 'firewall-linux' : 'firewall';
 session_start();
 require_once dirname(__FILE__) . "/config.php";
 require_once dirname(__FILE__) . "/classes/$fwlib.php";

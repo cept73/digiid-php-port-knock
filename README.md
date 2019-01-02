@@ -8,63 +8,8 @@ https://www.youtube.com/watch?v=pLrQycud5GI
 Linux: Installation (**BETA!**)
 =========================================================================================================
 
-1) Install web-server
-* Install web-server with PHP (include GMP library) and MySQL:
-```
-sudo apt install apache2 php mysql php-gmp
-```
-Uncomment in /etc/php/7.2/apache2/php.ini
-```
-...
-extension=gmp
-extension=mysqli
-...
-```
-And do `apache2ctl restart`
-
-2) Download project. Go to web-server site folder /var/www/html, remove all files and run from this folder:
-```
-sudo apt install git
-git clone https://github.com/cept73/digiid-php-port-knock.git .
-chmod +w ips
-```
-
-3) Create new database. Set some safe password to MySQL user (if not), you will also need to specify it later in config file. 
-Example for database name "digiid_auth":
-```
-mysql -u root -p
-create database digiid_auth;
-quit;
-```
-All necessary tables will be created automatically on demand, so you need only some database.
-
-4) Tune project.
-```
-cp /var/www/html/config.example.php /var/www/html/config.php
-mcedit /var/www/html/config.php
-```
-If you don't have mc, open `/var/www/html/config.php` in any file editor.
-Fill all fields of config.
-Set some SECRET word to set you as admin automaticaly without need to admin with some mysql tool.
-
-5) Activate firewall:
-```
-sudo apt install ufw
-sudo service ufw start
-```
-
-6) Activate Incron for link between web-site and firewall without root on both sides:
-```
-sudo apt install incron
-sudo print root > /etc/incron.allow
-sudo mv /var/www/html/install/incron /var/spool/incron
-rmdir /var/www/html/install
-```
-
-7) Activate new task for clean allowed IPs periodically:
-```
-sudo print 0 1 * * * /root/backupscript.sh >> /var/spool/cron/crontabs/root
-```
+go to install folder and run:
+`bash install.sh`
 
 Windows Server: Installation
 =========================================================================================================

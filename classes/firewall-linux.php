@@ -21,7 +21,6 @@ class firewall {
 
     private $profile;
     private $localport = DIGIID_OPENCLOSE_PORT;
-    private $ips_path = DIGIID_IPS_PATH;
 
     public function __construct($localport=null, $profile='public') {
     }
@@ -47,10 +46,10 @@ class firewall {
             // Wrong IP
             if (filter_var($string, FILTER_VALIDATE_IP) === false) continue;
             // Make file
-            $f = fopen($this->ips_path . '/' . $ips, 'wt')
+            $f = fopen(DIGIID_IPS_PATH . '/' . $ip, 'wt');
             fclose ($f);
         }
-        return true
+        return true;
     }
 
     /**
@@ -59,7 +58,7 @@ class firewall {
       */
     /*public function remove_rule($ip) {
         if (filter_var($string, FILTER_VALIDATE_IP) === false) return false;
-        return unlink ($this->ips_path . '/' . $ip)
+        return unlink (DIGIID_IPS_PATH . '/' . $ip)
     }*/
 
     /**
@@ -68,10 +67,12 @@ class firewall {
      * @return bool
      */
     public function add_ip($ip=null) {
-        // Empty ip = autodetect
-        if ($ip == null) $ip = $this->get_ip();
-        // Save
-        return $this->create_rule($ip);
+        // Empty ip or wrong => autodetect
+        if ($ip == null || filter_var($ip, FILTER_VALIDATE_IP) === false) $ip = $this->get_ip();
+        // Make file
+        $f = fopen(DIGIID_IPS_PATH . '/' . $ip, 'wt');
+        fclose ($f);
+        return true;
     }
 
     /**
@@ -80,10 +81,9 @@ class firewall {
      * @return bool
      */
     public function del_ip($ip=null) {
-        // Empty ip = autodetect
-        if ($ip == null) $ip = $this->get_ip();
-        if (filter_var($string, FILTER_VALIDATE_IP) === false) return false;
-        return unlink ($this->ips_path . '/' . $ip)
+        // Empty ip or wrong => autodetect
+        if ($ip == null || filter_var($ip, FILTER_VALIDATE_IP) === false) $ip = $this->get_ip();
+        return unlink (DIGIID_IPS_PATH . '/' . $ip);
     }
 
     /**
@@ -92,7 +92,7 @@ class firewall {
      */
     public function rule_exists() {
         // If rule exists lines even more than 8
-        return true
+        return true;
     }
 
     /**
@@ -111,7 +111,7 @@ class firewall {
      * @return array|false if fail
      */
      public function get_rule_ips() {
-        $ips = scandir($this->ips_path);
+        $ips = scandir(DIGIID_IPS_PATH);
 
         // Return array of IPs
         return $ips;

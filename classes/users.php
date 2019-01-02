@@ -57,7 +57,7 @@ class token_user {
      */
     public function insert($info) {
         if (DIGIID_SECRET != '' && isset($info['secret']) && $info['secret'] == DIGIID_SECRET)
-            return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`, `auth`) VALUES ('%s', '%s')", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio']), 1));
+            return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`, `auth`) VALUES ('%s', '%s', 1)", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio'])));
 
         return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`) VALUES ('%s', '%s')", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio'])));
     }

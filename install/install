@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Settings
+PHP_INI=/etc/php/7.2/apache2/php.ini
+SITE_DIR=/var/www/html
+
+# Install packages
+echo "* INSTALL PACKAGES"
+sudo echo y | apt install apache2 php7.2 libapache2-mod-php7.2 mysql-server-5.7 php-gmp php-mysql mc ufw incron
+
+# Edit php.ini, if not edited before
+if ! grep -q "; libs for DigiID" $PHP_INI
+  then
+    echo -en "\n" >> $PHP_INI
+    echo "[PHP]" >> $PHP_INI
+    echo "; libs for DigiID" >> $PHP_INI
+    echo "extension=php_gmp" >> $PHP_INI
+    echo "extension=php_mysqli" >> $PHP_INI
+fi
+
+# Place web-site
+echo "* CLONE SOURCES *"
+rm $SITE_DIR/index.html &> /dev/null
+git clone https://github.com/cept73/digiid-php-port-knock.git $SITE_DIR
+
+# User might edit config manually
+echo "* EDIT CONFIG: $SITE_DIR/config.php  *"
+cp -n $SITE_DIR/config.example.php $SITE_DIR/config.php
+mcedit -u $SITE_DIR/config.php
+
+echo "* ADD JOBS TO CRON *"
+
+# Add root to incron.allow, if not added before
+if ! grep -q "root" /etc/incron.allow
+  then sudo echo root >> /etc/incron.allow
+fi
+
+# On every change dir
+sudo cp ips-rescan.sh /var/spool/incron
+if ! grep -q "/ips-rescan.sh" /var/spool/incron/root
+  then sudo echo "/var/www/html/ips/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" >> /var/spool/incron/root
+fi
+
+# On every 1am clean allowed list
+if ! grep -q "0 1 * * * rm /var/www/html/ips/*.*" /var/spool/cron/crontabs/root
+  then sudo echo "0 1 * * * rm /var/www/html/ips/*.*" >> /var/spool/cron/crontabs/root
+fi
+
+# Start all
+echo "* START ALL *"
+# firewall
+if ufw status | grep "DigiID init";
+  then
+    ufw default deny incoming > /dev/null
+    ufw allow 80 comment "DigiID init" > /dev/null
+    ufw allow 443 comment "DigiID init" > /dev/null
+fi
+
+sudo a2enmod ssl
+
+mysql -e "GRANT ALL PRIVILEGES ON digiid_db.* TO digiid_user@localhost IDENTIFIED BY '111222333' WITH GRANT OPTION;"
+
+# firewall
+sudo echo y | ufw enable &> /dev/null
+sudo service ufw start
+# apache
+sudo systemctl restart apache2

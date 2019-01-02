@@ -1,1 +1,0 @@
-/var/www/html/ips/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan

@@ -65,13 +65,13 @@ if ($step == 1) {
 	// (this is deleted after an user successfully log in the system, so only will collide if two or more users try to log in at the same time)
 	$dao = new DAO();
 	$result = $dao->insert($nonce, @$_SERVER['REMOTE_ADDR']);
-	if ($dao->error || !$result) die ('dao');
+	if (!$result) die ('dao');
 }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title><?= $text[DIGIID_SITE_NAME] ?></title>
+	<title><?= (DIGIID_SITE_NAME != '') ? DIGIID_SITE_NAME : $text['site_name'] ?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="<?= DIGIID_SERVER_URL ?>">
@@ -150,7 +150,7 @@ if ($step == 1) {
 				</div>
 <?php endif ?>
 
-				<div class="login-more" style="background-image: url(images/bg-01.jpg);">
+				<div class="login-more" style="background-image: url(images/bg-01.default.jpg);">
 				</div>
 			</div>
 		</div>
