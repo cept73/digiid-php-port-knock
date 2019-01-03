@@ -3,7 +3,7 @@ Task
 
 Linux: server DigiID firewall
 
-Step-by-step:
+How it's works:
 
 1️⃣ Open on server for everybody only two ports: 80 (http), 443 (https). Close all others.
 
@@ -26,16 +26,27 @@ https://www.youtube.com/watch?v=pLrQycud5GI
 Linux: Installation (**BETA!**)
 =========================================================================================================
 
-1. go to install folder
-2. edit install.sh - set settings (specify db name, db user,  etc):
+Step-by-step:
+
+1️⃣ `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
+
+2️⃣ go to /var/www/html/install folder
+
+3️⃣ edit install - set settings (specify db name, db user,  etc):
 ```
 # SETTINGS
 ....
 ....
 # /SETTINGS
 ```
-3. save and run: `bash install.sh`
-4. after install, check is it works and remove install folder
+I prefer do it throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install.sh`
+
+4️⃣ save and run: `bash install.sh`
+
+5️⃣ after install, you need to setup apache2, link site to domain and turn on https
+(comming soon)
+
+check is it works and remove install folder
 
 Windows Server: Installation
 =========================================================================================================
