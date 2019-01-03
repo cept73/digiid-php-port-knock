@@ -1,15 +1,15 @@
 Task
 =========================================================================================================
 
-Linux: server DigiID firewall
+Linux: server Digi-ID firewall
 
 How it's works:
 
 1️⃣ Open on server for everybody only two ports: 80 (http), 443 (https). Close all others.
 
-2️⃣ When user enter url of server, he arrive to web-site with DigiID authentication
+2️⃣ When user enter url of server, he arrive to web-site with Digi-ID authentication
 
-3️⃣ If he is there for a first time, system prompts for registration. User may enter secret words (which set by admin before) and became "friendly user". Also admin may change theirs state throw mysql.
+3️⃣ If he is here for a first time, system prompts for registration. User may enter secret words (which set by admin before) and became "friendly user". Also admin may change theirs state throw mysql.
 
 4️⃣ After successfull log in for  good users IPs, system will  open other ports (list can be tuned throw firewall)
 
@@ -58,9 +58,12 @@ Easy way to get free 3 months certificate (renew it every 3 months):
 ```
 *I prefer edit throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install`*
 
-5️⃣ Run: `/var/www/html/install/install`. At some stage system also open configuration file, correct and save it to continue. **Important: specify DIGIID_SERVER_URL equal site name** from step 2. Also if you made changes on step 2, also correct settings there.
+5️⃣ Run: `/var/www/html/install/install`. At some stage system also open configuration file, correct and save it to continue. **Important: DIGIID_SERVER_URL must equal site name** from step 2.
+**Important: DIGIID_SECRET (default: mysecret) give ability new users on registration became admins automatically**. If you don't need this option anymore, you may change this value to empty string. This is more convinient way to add admins than add throw database. 
+If you made some changes on step 2, also correct other settings there.
+You also may change settings after throw config file: `/var/www/html/config.php`
 
-Check is it works and remove install folder (/var/www/html/install)
+Check is it works and remove install folder after installation `/var/www/html/install`
 
 Windows Server: Installation
 =========================================================================================================
