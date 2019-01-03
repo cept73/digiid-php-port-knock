@@ -33,7 +33,7 @@ define('DIGIID_DB_NAME', 'digiid_db');
 define('DIGIID_DB_USER', 'digiid_user');
 define('DIGIID_DB_PASS', '111222333');
 define('DIGIID_TBL_PREFIX', 'digiid_');
-define('DIGIID_SECRET', ''); // if set, who specified this secret, automatically will be admin
+define('DIGIID_SECRET', 'mysecret'); // if not empty, who specified this secret, automatically will be admin
 define('DIGIID_SITE_NAME', 'site_name');
 
 // Google Analytics

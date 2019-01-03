@@ -11,8 +11,8 @@ DB_PASSWORD=111222333
 
 # Install packages
 echo "* INSTALL PACKAGES"
-sudo apt-get update
-sudo apt-get --assume-yes install apache2 php7.2 libapache2-mod-php7.2 mysql-server-5.7 php-gmp php7.2-gmp php-mysql mc ufw incron
+sudo apt update
+sudo apt--assume-yes install apache2 php7.2 libapache2-mod-php7.2 mysql-server-5.7 php-gmp php7.2-gmp php-mysql mc ufw incron
 
 # Change owner
 chown -R www-data:www-data $SITE_DIR
