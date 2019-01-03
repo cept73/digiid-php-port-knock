@@ -30,7 +30,9 @@ Step-by-step:
 
 1️⃣ Clone project `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
 
-2️⃣ Prepare domain
+2️⃣ Install apache2: `sudo apt install apache2`
+
+3️⃣ Prepare domain
 
 Get some **domain name** (if you have not yet). 
 You may buy it or get it free, for example at https://hldns.ru
@@ -43,11 +45,11 @@ Easy way to get free 3 months certificate (renew it every 3 months):
 - Next
 - Copy specified text to file with specified name in folder /var/www/html/.well-known/...
 - Next
-- Copy first certificate to /etc/ssl/certs/ssl-cert-snakeoil.pem
-- Copy second certificate (private key) to /etc/ssl/private/ssl-cert-snakeoil.key 
-(if you select other names, also correct /etc/apache2/sites-available/digiid-ssl.conf params SSLCertificateFile, SSLCertificateKeyFile)
+**- Copy first certificate to /etc/ssl/certs/ssl-cert-snakeoil.pem
+- Copy second certificate (private key) to /etc/ssl/private/ssl-cert-snakeoil.key **
+**(if you select other names, also correct /etc/apache2/sites-available/digiid-ssl.conf params SSLCertificateFile, SSLCertificateKeyFile)**
 
-3️⃣ (not mandatory) You may specify other settings in `/var/www/html/install/install` script in SETTINGS section (specify db name, db user,  ..):
+4️⃣ (not mandatory) You may specify other settings in `/var/www/html/install/install` script in SETTINGS section (specify db name, db user,  ..):
 ```
 # SETTINGS
 ....
@@ -56,7 +58,7 @@ Easy way to get free 3 months certificate (renew it every 3 months):
 ```
 *I prefer edit throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install`*
 
-4️⃣ Run: `/var/www/html/install/install`. At some stage system also open configuration file, correct and save it to continue. **Important:** specify DIGIID_SERVER_URL equal site name from step 2. Also if you made changes on step 2, also correct settings there.
+5️⃣ Run: `/var/www/html/install/install`. At some stage system also open configuration file, correct and save it to continue. **Important:** specify DIGIID_SERVER_URL equal site name from step 2. Also if you made changes on step 2, also correct settings there.
 
 Check is it works and remove install folder (/var/www/html/install)
 
