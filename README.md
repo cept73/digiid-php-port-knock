@@ -28,35 +28,35 @@ Linux: Installation
 
 Step-by-step:
 
-1️⃣ `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
+1️⃣ Clone project `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
 
-2️⃣ Go to /var/www/html/install folder and edit settings in `install` script in SETTINGS section (specify db name, db user,  ..):
+2️⃣ (not mandatory) You may specify other settings in `/var/www/html/install/install` script in SETTINGS section (specify db name, db user,  ..):
 ```
 # SETTINGS
 ....
 ....
 # /SETTINGS
 ```
-I prefer do it throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install.sh`
+I prefer do it throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install`
 
-3️⃣ Save and run: `bash install.sh`
+3️⃣ Run: `/var/www/html/install/install`. System at some stage also open configuration file, correct and save it to continue. 
 
 4️⃣ Prepare domain
 
 Get some **domain name** (if you have not yet). You may buy it or get it free, for example on https://hldns.ru
 
-Get some **SSL certificate**. Easy way to get free 3 months certificate (get it every 3 months): 
+Get some **SSL certificate**. Easy way to get free 3 months certificate (renew it every 3 months): 
 - Go to https://zerossl.com/free-ssl/#crt
 - Enter domain name, accept ZeroSSL TOS and Lets Encrypt SA, go next step
 - Next
-- Copy text to file .well-known/... accessible throw web-site
+- Copy specified text to file with specified name in folder /var/www/html/.well-known/...
 - Copy first certificate to /etc/ssl/certs/ssl-cert-snakeoil.pem
-- Copy second certificate to /etc/ssl/private/ssl-cert-snakeoil.key 
+- Copy second certificate (private key) to /etc/ssl/private/ssl-cert-snakeoil.key 
 (if you select other names, also correct /etc/apache2/sites-available/digiid-ssl.conf params SSLCertificateFile, SSLCertificateKeyFile)
 
-5️⃣ Restart web-server: `sudo systemctl restart apache2`
+5️⃣ Run: `/var/www/html/install/install-end`
 
-Check is it works and remove install folder
+Check is it works and remove install folder (/var/www/html/install)
 
 Windows Server: Installation
 =========================================================================================================
@@ -105,8 +105,8 @@ When user wanted to use RDP, he must go throw auth site first.
 * User may click the button to close his port after success auth. He may also don't click this button and keep page opened to refresh page later (F5) - it's will allow his current dynamic address to log in.
 
 User may also print information for wallet recovery and for remembering his PIN: 
-[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [en].pdf)
-[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [ru].pdf)
+[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[en].pdf)
+[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[ru].pdf)
 
 Admin side
 ==========================================================================================================
