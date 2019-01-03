@@ -39,7 +39,7 @@ else
 fi
 
 # On every change dir
-sudo cp ips-rescan.sh /var/spool/incron
+sudo cp $SITE_DIR/install/ips-rescan.sh /var/spool/incron
 mkdir "$IPS_DIR" 2> /dev/null
 chmod "$IPS_DIR" +w 2> /dev/null
 if test -f "/var/spool/incron/root"; then 
@@ -51,7 +51,7 @@ else
 fi
 
 # On every 1am clean allowed list
-if test -f "/etc/incron.allow"; then
+if test -f "/var/spool/cron/crontabs/root"; then
   if ! sudo grep -q "0 1 * * * rm $IPS_DIR/*.*" /var/spool/cron/crontabs/root
     then sudo echo "0 1 * * * rm $IPS_DIR/*.*" >> /var/spool/cron/crontabs/root
   fi
@@ -60,7 +60,7 @@ else
 fi
 
 # Start all
-echo "* START ALL *"
+echo "* START FIREWALL *"
 # firewall
 if ! ufw status | grep "DigiID init";
   then
