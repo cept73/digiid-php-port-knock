@@ -18,7 +18,7 @@ limitations under the License.
 // COPY TO config.php AND CHANGE PARAMS
 
 // define your absolute url
-define('DIGIID_SERVER_URL', 'https://www.site.com/'); // https is must!
+define('DIGIID_SERVER_URL', '/'); // https is must!
 
 // site language
 define('DIGIID_LANG', 'en');
