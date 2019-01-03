@@ -105,8 +105,8 @@ When user wanted to use RDP, he must go throw auth site first.
 * User may click the button to close his port after success auth. He may also don't click this button and keep page opened to refresh page later (F5) - it's will allow his current dynamic address to log in.
 
 User may also print information for wallet recovery and for remembering his PIN: 
-[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [en].pdf)
-[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [ru].pdf)
+[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[en].pdf)
+[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[ru].pdf)
 
 Admin side
 ==========================================================================================================
