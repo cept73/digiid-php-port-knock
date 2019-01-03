@@ -14,22 +14,8 @@ echo "* INSTALL PACKAGES"
 sudo apt-get update
 sudo apt-get --assume-yes install apache2 php7.2 libapache2-mod-php7.2 mysql-server-5.7 php-gmp php7.2-gmp php-mysql mc ufw incron
 
-# Edit php.ini, if not edited before
-if ! grep -q "; libs for DigiID" $PHP_INI
-  then
-    echo -en "\n" >> $PHP_INI
-    echo "[PHP]" >> $PHP_INI
-    echo "; libs for DigiID" >> $PHP_INI
-    echo "extension=gmp" >> $PHP_INI
-    echo "extension=mysqli" >> $PHP_INI
-fi
-
-# Place web-site
-#echo "* CLONE SOURCES *"
-#rm $SITE_DIR/index.html &> /dev/null
-#git clone https://github.com/cept73/digiid-php-port-knock.git $SITE_DIR
-
-chmod -R www-data:www-data $SITE_DIR
+# Change owner
+chown -R www-data:www-data $SITE_DIR
 
 # Create user for database
 mysql -e "CREATE DATABASE $DB;"
@@ -39,7 +25,7 @@ mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO $DB_USER@localhost IDENTIFIED BY '$DB
 # User might edit config manually
 echo "* EDIT CONFIG: $SITE_DIR/config.php  *"
 cp -n $SITE_DIR/config.example.php $SITE_DIR/config.php
-mcedi -u $SITE_DIR/config.php
+mcedit -u $SITE_DIR/config.php
 
 echo "* ADD JOBS TO CRON *"
 
@@ -65,8 +51,12 @@ else
 fi
 
 # On every 1am clean allowed list
-if ! grep -q "0 1 * * * rm $IPS_DIR/*.*" /var/spool/cron/crontabs/root
-  then sudo echo "0 1 * * * rm $IPS_DIR/*.*" >> /var/spool/cron/crontabs/root
+if test -f "/etc/incron.allow"; then
+  if ! sudo grep -q "0 1 * * * rm $IPS_DIR/*.*" /var/spool/cron/crontabs/root
+    then sudo echo "0 1 * * * rm $IPS_DIR/*.*" >> /var/spool/cron/crontabs/root
+  fi
+else
+  sudo echo "0 1 * * * rm $IPS_DIR/*.*" > /var/spool/cron/crontabs/root
 fi
 
 # Start all
@@ -84,10 +74,3 @@ sudo a2enmod ssl &> /dev/null
 # firewall
 sudo echo y | ufw enable &> /dev/null
 sudo service ufw start
-
-#activate https
-cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/digiid-ssl.conf
-cp -s /etc/apache2/sites-available/digiid-ssl.conf /etc/apache2/sites-enabled/digiid-ssl.conf
-
-# start web site
-sudo systemctl restart apache2

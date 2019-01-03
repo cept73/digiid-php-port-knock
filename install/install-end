@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#activate https
+cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/digiid-ssl.conf
+cp -s /etc/apache2/sites-available/digiid-ssl.conf /etc/apache2/sites-enabled/digiid-ssl.conf
+
+# start web site
+sudo systemctl restart apache2
