@@ -23,16 +23,14 @@ If you like this project, donate some digibytes to DPZ9BncvaCRx7vMXN6dAQNnXzTP6J
 
 https://www.youtube.com/watch?v=pLrQycud5GI
 
-Linux: Installation (**BETA!**)
+Linux: Installation
 =========================================================================================================
 
 Step-by-step:
 
 1️⃣ `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
 
-2️⃣ go to /var/www/html/install folder
-
-3️⃣ edit install - set settings (specify db name, db user,  etc):
+2️⃣ Go to /var/www/html/install folder and edit settings in `install` script in SETTINGS section (specify db name, db user,  ..):
 ```
 # SETTINGS
 ....
@@ -41,12 +39,24 @@ Step-by-step:
 ```
 I prefer do it throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install.sh`
 
-4️⃣ save and run: `bash install.sh`
+3️⃣ Save and run: `bash install.sh`
 
-5️⃣ after install, you need to setup apache2, link site to domain and turn on https
-(comming soon)
+4️⃣ Prepare domain
 
-check is it works and remove install folder
+Get some **domain name** (if you have not yet). You may buy it or get it free, for example on https://hldns.ru
+
+Get some **SSL certificate**. Easy way to get free 3 months certificate (get it every 3 months): 
+- Go to https://zerossl.com/free-ssl/#crt
+- Enter domain name, accept ZeroSSL TOS and Lets Encrypt SA, go next step
+- Next
+- Copy text to file .well-known/... accessible throw web-site
+- Copy first certificate to /etc/ssl/certs/ssl-cert-snakeoil.pem
+- Copy second certificate to /etc/ssl/private/ssl-cert-snakeoil.key 
+(if you select other names, also correct /etc/apache2/sites-available/digiid-ssl.conf params SSLCertificateFile, SSLCertificateKeyFile)
+
+5️⃣ Restart web-server: `sudo systemctl restart apache2`
+
+Check is it works and remove install folder
 
 Windows Server: Installation
 =========================================================================================================
