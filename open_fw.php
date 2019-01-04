@@ -30,6 +30,20 @@ if (!empty($argv)) foreach ($argv as $param) {
 	}
 }
 
+// Find signal to stop
+$signal_off = isset($_REQUEST['off']);
+if ($signal_off) {
+
+	// Delete IP address, change to 127.0.0.1 if empty
+	$fw->del_ip ();
+	unset ($_SESSION['user']);
+
+	if (!isset($_REQUEST['silent']))
+		echo json_encode (array('result' => 'Остановлено'));
+
+	return;
+}
+
 // No user logged in
 if (empty($_SESSION['user']['address']) || empty($_SESSION['user']['info'])) {
 	header ('location:' . DIGIID_SERVER_URL);
@@ -43,20 +57,6 @@ if (intval($_SESSION['user']['info']['auth']) < 1) {
 	header ('location:' . DIGIID_SERVER_URL);
 	//echo json_encode (array ('error' => 'Вход станет доступен после проверки администратором'));
 	exit;
-}
-
-// Find signal to stop
-$signal_off = isset($_REQUEST['off']);
-if ($signal_off) {
-
-	// Delete IP address, change to 127.0.0.1 if empty
-	$fw->del_ip ();
-	unset ($_SESSION['user']);
-
-	if (!isset($_REQUEST['silent']))
-		echo json_encode (array('result' => 'Остановлено'));
-
-	return;
 }
 
 // Add user IP address
