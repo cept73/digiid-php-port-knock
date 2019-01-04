@@ -42,6 +42,7 @@ fi
 sudo cp $SITE_DIR/install/ips-rescan.sh /var/spool/incron
 mkdir "$IPS_DIR" 2> /dev/null
 chmod "$IPS_DIR" +w 2> /dev/null
+chown www-data:www-data "$IPS_DIR" 2> /dev/null
 if test -f "/var/spool/incron/root"; then 
   if ! grep -q "/ips-rescan.sh" /var/spool/incron/root
     then sudo echo "$IPS_DIR/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" >> /var/spool/incron/root
