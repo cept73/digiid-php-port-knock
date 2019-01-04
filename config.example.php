@@ -27,7 +27,7 @@ define('DIGIID_LANG', 'en');
 define('DIGIID_DEBUG_PATH', '');
 
 // define database credentials
-define('DIGIID_SITE_NAME', 'DigiID auth');
+define('DIGIID_SITE_NAME', 'Digi-ID auth');
 define('DIGIID_DB_HOST', 'localhost');
 define('DIGIID_DB_NAME', 'digiid_db');
 define('DIGIID_DB_USER', 'digiid_user');
