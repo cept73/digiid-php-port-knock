@@ -18,7 +18,7 @@ limitations under the License.
 // COPY TO config.php AND CHANGE PARAMS
 
 // define your absolute url
-define('DIGIID_SERVER_URL', '/'); // https is must!
+define('DIGIID_SERVER_URL', 'https://...'); // https is must!
 
 // site language
 define('DIGIID_LANG', 'en');
@@ -34,7 +34,6 @@ define('DIGIID_DB_USER', 'digiid_user');
 define('DIGIID_DB_PASS', '111222333');
 define('DIGIID_TBL_PREFIX', 'digiid_');
 define('DIGIID_SECRET', 'mysecret'); // if not empty, who specified this secret, automatically will be admin
-define('DIGIID_SITE_NAME', 'site_name');
 
 // Google Analytics
 define('DIGIID_GOOGLE_ANALYTICS_TAG', ''); // for example UA-123456789-1
