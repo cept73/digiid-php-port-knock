@@ -13,7 +13,8 @@
         'register' => 'Регистрация',
         'contact_admin' => 'После регистрации свяжитесь с администратором',
         'cancel_query' => 'Отменить запрос',
-        'access_approved' => 'Доступ открыт.',
+        'access_approved' => 'Доступ открыт',
+        'access_guest' => 'Гость',
         'your_ip_is' => 'Ваш IP',
         'close_access' => 'Закрыть',
     );

@@ -140,7 +140,7 @@ if ($step == 1) {
 <?php elseif ($step == 3) : ?>
 				<div id="step3" class="login-form step" style="padding-bottom: 42px;">
 					<div class="bigscreen-padding hidden-xs"></div>
-					<p class="login-form-title"><?= $text['access_approved'] ?></p>
+					<p class="login-form-title"><?= intval($user_info['auth']) > 0 ? $text['access_approved'] : $text['access_guest'] ?></p>
 					<p class="info"><?= $text['your_ip_is'] ?>: <strong><?= $_SERVER["REMOTE_ADDR"] ?></strong></p>
 					<div class="container-login-form-btn" style="margin-top:5px; padding: 0 30px">
 					<form action="<?= DIGIID_SERVER_URL ?>logout.php" method="post">
