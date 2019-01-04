@@ -35,7 +35,7 @@ Step-by-step:
 3️⃣ Prepare domain
 
 Get some **domain name** (if you have not yet). 
-You may buy it or get it free, for example at https://hldns.ru
+You may buy it or get it free, for example at http://hldns.ru
 
 Get some **SSL certificate**. 
 Easy way to get free 3 months certificate (renew it every 3 months): 
