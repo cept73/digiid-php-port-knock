@@ -38,7 +38,8 @@ if (empty($_SESSION['user']['address']) || empty($_SESSION['user']['info'])) {
 }
 
 // No auth permission
-if (!isset($_SESSION['user']['info']['auth']) || intval($_SESSION['user']['info']['auth']) < 1) {
+if (intval($_SESSION['user']['info']['auth']) < 1) {
+	unset ($_SESSION['user']);
 	header ('location:' . DIGIID_SERVER_URL);
 	//echo json_encode (array ('error' => 'Вход станет доступен после проверки администратором'));
 	exit;
