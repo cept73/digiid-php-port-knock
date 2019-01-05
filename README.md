@@ -21,16 +21,16 @@ Windows: for example, you want to use port 1234 on your server for Remote Deskto
 
 If you like this project, donate some digibytes to DPZ9BncvaCRx7vMXN6dAQNnXzTP6JVahqj
 
-https://www.youtube.com/watch?v=pLrQycud5GI
+About Digi-ID: *https://www.youtube.com/watch?v=pLrQycud5GI*
 
 Linux: Installation
 =========================================================================================================
 
 Youtube:
 
-*https://www.youtube.com/watch?v=zNDmEPABSTM (English)*
+* *https://www.youtube.com/watch?v=zNDmEPABSTM (English)*
 
-*https://www.youtube.com/watch?v=cfsw1dLzR-M (Russian)*
+* *https://www.youtube.com/watch?v=cfsw1dLzR-M (Russian)*
 
 Step-by-step:
 
