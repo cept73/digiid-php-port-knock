@@ -29,6 +29,7 @@ Linux: Installation
 Youtube:
 
 *https://www.youtube.com/watch?v=zNDmEPABSTM (English)*
+
 *https://www.youtube.com/watch?v=cfsw1dLzR-M (Russian)*
 
 Step-by-step:
