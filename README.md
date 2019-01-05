@@ -26,7 +26,8 @@ https://www.youtube.com/watch?v=pLrQycud5GI
 Linux: Installation
 =========================================================================================================
 
-https://www.youtube.com/watch?v=zNDmEPABSTM
+English: https://www.youtube.com/watch?v=zNDmEPABSTM
+Russian: https://www.youtube.com/watch?v=cfsw1dLzR-M
 
 Step-by-step:
 
