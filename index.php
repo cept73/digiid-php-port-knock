@@ -110,7 +110,7 @@ if ($step == 1) {
 <?php elseif ($step == 2) : ?>
 				<div id="step2" class="login-form step">
 					<div class="bigscreen-padding hidden-xs"></div>
-					<form id="regform" action="register.php" method="post">
+					<form id="regform" action="<?= DIGIID_SERVER_URL ?>/register.php" method="post">
 					<span class="login-form-title" style="padding-bottom: 42px;">
 						<?= $text['unknown_device'] ?>
 						<?= $user_addr ? "<span class=\"info\">$user_addr</span>" : '' ?>
@@ -131,7 +131,7 @@ if ($step == 1) {
 					<p class="address" style="padding-bottom: 42px"><?= $text['contact_admin'] ?></p>
 					</form>
 
-					<form action="logout.php" method="post">
+					<form action="<?= DIGIID_SERVER_URL ?>/logout.php" method="post">
 					<div class="container-login-form-btn" style="margin-top:5px">
 						<input type="submit" class="login-form-btn" value="<?= $text['cancel_query'] ?>" />
 					</div>
@@ -143,7 +143,7 @@ if ($step == 1) {
 					<p class="login-form-title"><?= intval($user_info['auth']) > 0 ? $text['access_approved'] : $text['access_guest'] ?></p>
 					<p class="info"><?= $text['your_ip_is'] ?>: <strong><?= $_SERVER["REMOTE_ADDR"] ?></strong></p>
 					<div class="container-login-form-btn" style="margin-top:5px; padding: 0 30px">
-					<form action="logout.php" method="post">
+					<form action="<?= DIGIID_SERVER_URL ?>/logout.php" method="post">
 						<input type="submit" class="login-form-btn" value="<?= $text['close_access'] ?>" />
 					</form>
 					</div>
