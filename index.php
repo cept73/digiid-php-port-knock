@@ -120,7 +120,7 @@ if ($step == 1) {
 						<span class="label-input100"><?= $text['your_name'] ?>:</span>
 					</div>
 					<div class="wrap-input100">
-						<input class="input100" type="text" name="secret" required="false">
+						<input class="input100" type="text" name="secret">
 						<span class="focus-input100"></span>
 						<span class="label-input100"><?= $text['secret'] ?>:</span>
 					</div>
