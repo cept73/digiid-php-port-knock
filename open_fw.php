@@ -36,13 +36,6 @@ if (empty($_SESSION['user']['address']) || empty($_SESSION['user']['info'])) {
 	exit;
 }
 
-// No auth permission
-if (!isset($_SESSION['user']['info']['auth']) || intval($_SESSION['user']['info']['auth']) < 1) {
-	header ('location:' . DIGIID_SERVER_URL);
-	//echo json_encode (array ('error' => 'Вход станет доступен после проверки администратором'));
-	exit;
-}
-
 // Find signal to stop
 $signal_off = isset($_REQUEST['off']);
 if ($signal_off) {
@@ -55,6 +48,13 @@ if ($signal_off) {
 		echo json_encode (array('result' => 'Остановлено'));
 
 	return;
+}
+
+// No auth permission
+if (!isset($_SESSION['user']['info']['auth']) || intval($_SESSION['user']['info']['auth']) < 1) {
+	header ('location:' . DIGIID_SERVER_URL);
+	//echo json_encode (array ('error' => 'Вход станет доступен после проверки администратором'));
+	exit;
 }
 
 // Add user IP address
