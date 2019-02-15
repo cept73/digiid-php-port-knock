@@ -1,11 +1,77 @@
 Task
 =========================================================================================================
 
-For example, you want to use port 1234 on your server for Remote Desktop Protocol connections. Such connections must be unavailable directly to anybody, only after user authentication with Digi-ID. For exclusion, local network may connect without authentication.
+Linux: server Digi-ID firewall
 
-https://www.youtube.com/watch?v=pLrQycud5GI
+How it's works:
 
-Server side: Installation
+1️⃣ Open on server for everybody only two ports: 80 (http), 443 (https). Close all others.
+
+2️⃣ When user enter url of server, he arrive to web-site with Digi-ID authentication
+
+3️⃣ If he is here for a first time, system prompts for registration. User may enter secret words (which set by admin before) and became "friendly user". Also admin may change theirs state throw mysql.
+
+4️⃣ After successfull log in for  good users IPs, system will  open other ports (list can be tuned throw firewall)
+
+5️⃣ When user end his work, he may click Close connection and system close door for his IP.
+
+6️⃣ If he didnt close and gone, system clear list of current logged users daily at 1 o'clock
+
+Windows: for example, you want to use port 1234 on your server for Remote Desktop Protocol connections. Such connections must be unavailable directly to anybody, only after user authentication with Digi-ID. For exclusion, local network may connect without authentication.
+
+If you like this project, donate some digibytes to DPZ9BncvaCRx7vMXN6dAQNnXzTP6JVahqj
+
+About Digi-ID: *https://www.youtube.com/watch?v=pLrQycud5GI*
+
+Linux: Installation
+=========================================================================================================
+
+Youtube:
+
+* *https://www.youtube.com/watch?v=zNDmEPABSTM (English)*
+
+* *https://www.youtube.com/watch?v=cfsw1dLzR-M (Russian)*
+
+Step-by-step:
+
+1️⃣ Clone project `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
+
+2️⃣ Install apache2: `sudo apt install apache2`
+
+3️⃣ Prepare domain
+
+Get some **domain name** (if you have not yet). 
+You may buy it or get it free, for example at http://hldns.ru
+
+Get some **SSL certificate**. 
+Easy way to get free 3 months certificate (renew it every 3 months): 
+- Start web-server `sudo systemctl start apache2` 
+- Go to https://zerossl.com/free-ssl/#crt
+- Enter domain name, accept ZeroSSL TOS and Lets Encrypt SA, go next step
+- Next
+- Copy specified text to file with specified name in folder /var/www/html/.well-known/...
+- Next
+- **Copy first certificate to /etc/ssl/certs/ssl-cert-snakeoil.pem**
+- **Copy second certificate (private key) to /etc/ssl/private/ssl-cert-snakeoil.key**
+**(if you select other names, also correct /etc/apache2/sites-available/digiid-ssl.conf params SSLCertificateFile, SSLCertificateKeyFile)**
+
+4️⃣ (not mandatory) You may specify other settings in `/var/www/html/install/install` script in SETTINGS section (specify db name, db user,  ..):
+```
+# SETTINGS
+....
+....
+# /SETTINGS
+```
+*I prefer edit throw mcedit: `apt-get install mcedit` and `mcedit /var/www/html/install/install`*
+
+5️⃣ Run: `/var/www/html/install/install`. At some stage system also open configuration file, correct and save it to continue. **Important: DIGIID_SERVER_URL must equal site name** from step 2.
+**Important: DIGIID_SECRET (default: mysecret) give ability new users on registration became admins automatically**. If you don't need this option anymore, you may change this value to empty string. This is more convinient way to add admins than add throw database. 
+If you made some changes on step 2, also correct other settings there.
+You also may change settings after throw config file: `/var/www/html/config.php`
+
+Check is it works and remove install folder after installation `/var/www/html/install`
+
+Windows Server: Installation
 =========================================================================================================
 
 * If you want to work directly from local network without authentication, open Firewall and make rule: port = 1234, external IPs = local network
@@ -17,9 +83,9 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinS
 ```
 
 Also restart RDP service from Windows server services
-**If you install web-server on Open Server, then you need user to be always logged in for work. Best case is to install web-server which running as a service. Apache2+PHP7+MySQL is the best solution instead of Open Server. Instruction is comming soon**
+**If you install web-server on Open Server, then you need OR run web-server as-service OR user to be always logged in for work. Best case is to install web-server which running as a service. Apache2+PHP7+MySQL is the best solution instead of Open Server.**
 
-* Install web-server with PHP (include GMP library) and MySQL. For example, you may use ready all-in-one free pack: [Open Server](https://ospanel.io)).
+* Install web-server with PHP (include GMP library) and MySQL. As quick solution, you may use ready all-in-one free pack: [Open Server](https://ospanel.io)).
 * Set some safe password to MySQL user and create new database, which you will specify later in config file. All necessary tables will be created automatically on demand, so you need only some database.
 * Go to web-server site folder (for Open Server, C:\OSPanel\domains\localhost), remove all files there, write command to download project: 
 
@@ -52,15 +118,15 @@ When user wanted to use RDP, he must go throw auth site first.
 * User may click the button to close his port after success auth. He may also don't click this button and keep page opened to refresh page later (F5) - it's will allow his current dynamic address to log in.
 
 User may also print information for wallet recovery and for remembering his PIN: 
-[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [en].pdf)
-[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte Wallet paper [ru].pdf)
+[English version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[en].pdf)
+[Russian version](https://github.com/cept73/digiid-php-portknock/blob/master/DigiByte_Wallet_paper_[ru].pdf)
 
 Admin side
 ==========================================================================================================
 
 To allow access to user:
-* Go to MySQL manager (for Open Server: click the button on the flag icon in system tray and select Additional in Menu, then MySQL Manager)
+* Go to MySQL manager (for Open Server: click the button on the flag icon in system tray and select Additional in Menu, then MySQL Manager). For linux recommend to use mysql-workbench
 * Open the database, find the table "user" with prefix in name (which specified inside config file)
 * Find the line with new user and change 'auth' field to 1
 
-If you don't want to allow user use port 1234 any more, you may set auth=null for him..
+If you don't want to allow user communicate with server any more, you may set auth=null for him..

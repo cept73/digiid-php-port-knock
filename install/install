@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# SETTINGS
+PHP_INI=/etc/php/7.2/apache2/php.ini
+SITE_DIR=/var/www/html
+IPS_DIR=/var/www/html/ips
+DB=digiid_db
+DB_USER=digiid_user
+DB_PASSWORD=111222333
+# /SETTINGS
+
+# Install packages
+echo "* INSTALL PACKAGES"
+sudo apt update
+sudo apt --assume-yes install apache2 php7.2 libapache2-mod-php7.2 mysql-server-5.7 php-gmp php7.2-gmp php-mysql mc ufw incron
+
+# Change owner
+chown -R www-data:www-data $SITE_DIR
+
+# Create user for database
+mysql -e "CREATE DATABASE $DB;"
+mysql -e "CREATE USER $DB_USER@localhost;"
+mysql -e "GRANT ALL PRIVILEGES ON $DB.* TO $DB_USER@localhost IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;"
+
+# User might edit config manually
+echo "* EDIT CONFIG: $SITE_DIR/config.php  *"
+cp -n $SITE_DIR/config.example.php $SITE_DIR/config.php
+mcedit -u $SITE_DIR/config.php
+
+echo "* ADD JOBS TO CRON *"
+
+# Add root to incron.allow, if not added before
+if test -f "/etc/incron.allow"; then 
+  if ! grep -q "root" /etc/incron.allow
+    then sudo echo root >> /etc/incron.allow
+  fi
+else
+  sudo echo root > /etc/incron.allow
+fi
+
+# On every change dir
+sudo cp $SITE_DIR/install/ips-rescan.sh /var/spool/incron
+mkdir "$IPS_DIR" 2> /dev/null
+chmod "$IPS_DIR" +w 2> /dev/null
+chown www-data:www-data "$IPS_DIR" 2> /dev/null
+if test -f "/var/spool/incron/root"; then 
+  if ! grep -q "/ips-rescan.sh" /var/spool/incron/root
+    then sudo echo "$IPS_DIR/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" >> /var/spool/incron/root
+  fi
+else
+  sudo echo "$IPS_DIR/ IN_CREATE,IN_DELETE /bin/bash /var/spool/incron/ips-rescan.sh" > /var/spool/incron/root
+fi
+
+# On every 1am clean allowed list
+if test -f "/var/spool/cron/crontabs/root"; then
+  if ! sudo grep -q "0 1 * * * rm $IPS_DIR/*.*" /var/spool/cron/crontabs/root
+    then sudo echo "0 1 * * * rm $IPS_DIR/*.*" >> /var/spool/cron/crontabs/root
+  fi
+else
+  sudo echo "0 1 * * * rm $IPS_DIR/*.*" > /var/spool/cron/crontabs/root
+fi
+
+# Start all
+echo "* START FIREWALL *"
+# firewall
+if ! ufw status | grep "DigiID init";
+  then
+    ufw default deny incoming > /dev/null
+    ufw allow 80 comment "DigiID init" > /dev/null
+    ufw allow 443 comment "DigiID init" > /dev/null
+fi
+
+sudo a2enmod ssl &> /dev/null
+
+# firewall
+sudo echo y | ufw enable &> /dev/null
+sudo service ufw start
+
+echo "* ADD SSL SUPPORT AND START WEB-SERVER *"
+
+#activate https
+cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/digiid-ssl.conf
+cp -s /etc/apache2/sites-available/digiid-ssl.conf /etc/apache2/sites-enabled/digiid-ssl.conf
+
+# start web site
+sudo systemctl restart apache2

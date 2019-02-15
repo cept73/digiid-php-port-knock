@@ -16,8 +16,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//phpinfo();exit;
-// Require config.php
 if (!file_exists("config.php")) die ("Config.php file is not exists");
 
 session_start ();
@@ -59,7 +57,7 @@ if ($step == 1) {
 	$nonce = $digiid->generateNonce();
 
 	// build uri with nonce, nonce is optional, but we pre-calculate it to avoid extracting it later
-	$digiid_uri = $digiid->buildURI(DIGIID_SERVER_URL . 'callback.php', $nonce);
+	$digiid_uri = $digiid->buildURI(DIGIID_SERVER_URL . '/callback.php', $nonce);
 
 	// Insert nonce + IP in the database to avoid an attacker go and try several nonces
 	// This will only allow one nonce per IP, but it could be easily modified to allow severals per IP
@@ -72,7 +70,7 @@ if ($step == 1) {
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title><?= isset($text[DIGIID_SITE_NAME]) ? $text[DIGIID_SITE_NAME] : DIGIID_SITE_NAME ?></title>
+	<title><?= empty($text['site_name']) ? DIGIID_SITE_NAME : $text['site_name'] ?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="<?= DIGIID_SERVER_URL ?>">
@@ -111,7 +109,7 @@ if ($step == 1) {
 <?php elseif ($step == 2) : ?>
 				<div id="step2" class="login-form step">
 					<div class="bigscreen-padding hidden-xs"></div>
-					<form id="regform" action="<?= DIGIID_SERVER_URL ?>register.php" method="post">
+					<form id="regform" action="<?= DIGIID_SERVER_URL ?>/register.php" method="post">
 					<span class="login-form-title" style="padding-bottom: 42px;">
 						<?= $text['unknown_device'] ?>
 						<?= $user_addr ? "<span class=\"info\">$user_addr</span>" : '' ?>
@@ -121,13 +119,18 @@ if ($step == 1) {
 						<span class="focus-input100"></span>
 						<span class="label-input100"><?= $text['your_name'] ?>:</span>
 					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="secret" required="false">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><?= $text['secret'] ?>:</span>
+					</div>
 					<div class="container-login-form-btn">
 						<input type="submit" class="login-form-btn main" value="<?= $text['register'] ?>" />
 					</div>
 					<p class="address" style="padding-bottom: 42px"><?= $text['contact_admin'] ?></p>
 					</form>
 
-					<form action="<?= DIGIID_SERVER_URL ?>logout.php" method="post">
+					<form action="<?= DIGIID_SERVER_URL ?>/logout.php" method="post">
 					<div class="container-login-form-btn" style="margin-top:5px">
 						<input type="submit" class="login-form-btn" value="<?= $text['cancel_query'] ?>" />
 					</div>
@@ -136,17 +139,17 @@ if ($step == 1) {
 <?php elseif ($step == 3) : ?>
 				<div id="step3" class="login-form step" style="padding-bottom: 42px;">
 					<div class="bigscreen-padding hidden-xs"></div>
-					<p class="login-form-title"><?= $text['access_approved'] ?></p>
+					<p class="login-form-title"><?= intval($user_info['auth']) > 0 ? $text['access_approved'] : $text['access_guest'] ?></p>
 					<p class="info"><?= $text['your_ip_is'] ?>: <strong><?= $_SERVER["REMOTE_ADDR"] ?></strong></p>
 					<div class="container-login-form-btn" style="margin-top:5px; padding: 0 30px">
-					<form action="<?= DIGIID_SERVER_URL ?>logout.php" method="post">
+					<form action="<?= DIGIID_SERVER_URL ?>/logout.php" method="post">
 						<input type="submit" class="login-form-btn" value="<?= $text['close_access'] ?>" />
 					</form>
 					</div>
 				</div>
 <?php endif ?>
 
-				<div class="login-more" style="background-image: url(images/bg-01.jpg);">
+				<div class="login-more" style="background-image: url(images/bg-01.default.jpg);">
 				</div>
 			</div>
 		</div>

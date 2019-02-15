@@ -17,11 +17,8 @@ limitations under the License.
 
 // COPY TO config.php AND CHANGE PARAMS
 
-// define your site name
-define('DIGIID_SITE_NAME', 'Site name');
-
 // define your absolute url
-define('DIGIID_SERVER_URL', 'https://www.site.com/'); // https is must!
+define('DIGIID_SERVER_URL', 'https://...'); // https is must!
 
 // site language
 define('DIGIID_LANG', 'en');
@@ -30,14 +27,20 @@ define('DIGIID_LANG', 'en');
 define('DIGIID_DEBUG_PATH', '');
 
 // define database credentials
+define('DIGIID_SITE_NAME', 'Digi-ID auth');
 define('DIGIID_DB_HOST', 'localhost');
-define('DIGIID_DB_NAME', 'table');
-define('DIGIID_DB_USER', 'root');
-define('DIGIID_DB_PASS', '');
+define('DIGIID_DB_NAME', 'digiid_db');
+define('DIGIID_DB_USER', 'digiid_user');
+define('DIGIID_DB_PASS', '111222333');
 define('DIGIID_TBL_PREFIX', 'digiid_');
+define('DIGIID_SECRET', 'mysecret'); // if not empty, who specified this secret, automatically will be admin
 
+// Google Analytics
 define('DIGIID_GOOGLE_ANALYTICS_TAG', ''); // for example UA-123456789-1
 
-// Which port to open/close
+// For Linux. Where hold IPs. Allow ALL ports (at current version)
+define('DIGIID_IPS_PATH', '/var/www/html/ips');
+
+// For Windows. Which port to open/close
 define('DIGIID_OPENCLOSE_PORT', 1234);
 define('DIGIID_OPENCLOSE_PROFILE', 'public');

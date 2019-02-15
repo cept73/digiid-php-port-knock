@@ -12,10 +12,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+// Detect server operation system
+$fwlib = (strtoupper(php_uname('s')) == 'LINUX') ? 'firewall-linux' : 'firewall';
 session_start();
 require_once dirname(__FILE__) . "/config.php";
-require_once dirname(__FILE__) . "/classes/firewall.php";
+require_once dirname(__FILE__) . "/classes/$fwlib.php";
 
 // Using port and network profile (public, private, domain, any)
 $fw = new firewall (DIGIID_OPENCLOSE_PORT, DIGIID_OPENCLOSE_PROFILE);
@@ -51,7 +52,8 @@ if ($signal_off) {
 }
 
 // No auth permission
-if (!isset($_SESSION['user']['info']['auth']) || intval($_SESSION['user']['info']['auth']) < 1) {
+if (intval($_SESSION['user']['info']['auth']) < 1) {
+	unset ($_SESSION['user']);
 	header ('location:' . DIGIID_SERVER_URL);
 	//echo json_encode (array ('error' => 'Вход станет доступен после проверки администратором'));
 	exit;
