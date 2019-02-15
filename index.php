@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+//phpinfo();exit;
 // Require config.php
 if (!file_exists("config.php")) die ("Config.php file is not exists");
 
@@ -65,13 +66,13 @@ if ($step == 1) {
 	// (this is deleted after an user successfully log in the system, so only will collide if two or more users try to log in at the same time)
 	$dao = new DAO();
 	$result = $dao->insert($nonce, @$_SERVER['REMOTE_ADDR']);
-	if ($dao->error || !$result) die ('dao');
+	if (isset($dao->error) || !$result) die ('dao');
 }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title><?= $text[DIGIID_SITE_NAME] ?></title>
+	<title><?= isset($text[DIGIID_SITE_NAME]) ? $text[DIGIID_SITE_NAME] : DIGIID_SITE_NAME ?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="<?= DIGIID_SERVER_URL ?>">
