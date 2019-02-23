@@ -70,7 +70,7 @@ if ($step == 1) {
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<title><?= empty($text['site_name']) ? DIGIID_SITE_NAME : $text['site_name'] ?></title>
+	<title><?= empty($text[DIGIID_SITE_NAME]) ? DIGIID_SITE_NAME : $text[DIGIID_SITE_NAME] ?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="<?= DIGIID_SERVER_URL ?>">
@@ -149,7 +149,7 @@ if ($step == 1) {
 				</div>
 <?php endif ?>
 
-				<div class="login-more" style="background-image: url(images/bg-01.default.jpg);">
+				<div class="login-more" style="background-image: url(images/bg-01.jpg);">
 				</div>
 			</div>
 		</div>
