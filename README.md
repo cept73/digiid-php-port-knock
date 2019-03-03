@@ -36,7 +36,7 @@ Step-by-step:
 
 1️⃣ Clone project `git clone https://github.com/cept73/digiid-php-port-knock.git /var/www/html`
 
-2️⃣ Install apache2: `sudo apt install apache2`
+2️⃣ Install apache2: `sudo apt install apache2 php mysql-server php-gmp php-mysqli`
 
 3️⃣ Prepare domain
 
