@@ -149,7 +149,7 @@ if ($step == 1) {
 				</div>
 <?php endif ?>
 
-				<div class="login-more" style="background-image: url(images/bg-01.jpg);">
+				<div class="login-more">
 				</div>
 			</div>
 		</div>
